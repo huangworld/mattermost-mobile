@@ -1,6 +1,8 @@
 // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
+import {useChatletChannel} from '@chatlet/hooks/use_chatlet_channel';
+import {goToChatletBoard} from '@chatlet/screens/navigation';
 import React, {useCallback, useEffect, useMemo} from 'react';
 import {useIntl} from 'react-intl';
 import {DeviceEventEmitter, Platform, Text, View} from 'react-native';
@@ -221,8 +223,21 @@ const ChannelHeader = ({
         goToPlaybookRuns(channelId, displayName);
     }, [playbooksActiveRuns, activeRunId, channelId, displayName, currentUserId, teamId]);
 
+    const chatlet = useChatletChannel(serverUrl, channelId);
+    const openChatletBoard = useCallback(() => {
+        goToChatletBoard(channelId, displayName);
+    }, [channelId, displayName]);
+
     const rightButtons = useMemo(() => {
         const buttons: NavigationButtonProps[] = [];
+        if (chatlet.enabled) {
+            buttons.push({
+                id: 'chatlet-board',
+                iconName: 'product-boards',
+                onPress: openChatletBoard,
+                testID: 'channel_header.chatlet_board.button',
+            });
+        }
         if (isPlaybooksEnabled && !isDMorGM) {
             buttons.push({
                 id: 'playbooks',
@@ -244,7 +259,7 @@ const ChannelHeader = ({
         });
 
         return buttons;
-    }, [isPlaybooksEnabled, playbooksActiveRuns, isDMorGM, onChannelQuickAction, openPlaybooksRuns, isDM, callsAvailable, canCallDMUser, navigationHeaderCallButton]);
+    }, [isPlaybooksEnabled, playbooksActiveRuns, isDMorGM, onChannelQuickAction, openPlaybooksRuns, isDM, callsAvailable, canCallDMUser, navigationHeaderCallButton, chatlet.enabled, openChatletBoard]);
 
     let title = displayName;
     if (isOwnDirectMessage) {

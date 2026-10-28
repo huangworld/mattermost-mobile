@@ -2536,7 +2536,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - react-native-network-client (1.11.2):
+  - react-native-network-client (1.11.4):
     - Alamofire (~> 5.11.2)
     - boost
     - DoubleConversion
@@ -2568,7 +2568,7 @@ PODS:
     - Starscream (~> 4.0.8)
     - SwiftyJSON (~> 5.0.2)
     - Yoga
-  - react-native-network-client-session-attributes (1.11.2)
+  - react-native-network-client-session-attributes (1.11.4)
   - react-native-notifications (5.2.2):
     - React-Core
   - react-native-paste-input (2.0.1):
@@ -2803,6 +2803,34 @@ PODS:
   - react-native-webrtc (124.0.7):
     - JitsiWebRTC (~> 124.0.0)
     - React-Core
+  - react-native-webview (13.16.0):
+    - boost
+    - DoubleConversion
+    - fast_float
+    - fmt
+    - glog
+    - hermes-engine
+    - RCT-Folly
+    - RCT-Folly/Fabric
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - SocketRocket
+    - Yoga
   - React-NativeModulesApple (0.83.9):
     - boost
     - DoubleConversion
@@ -4064,6 +4092,7 @@ DEPENDENCIES:
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-video (from `../node_modules/react-native-video`)
   - react-native-webrtc (from `../node_modules/react-native-webrtc`)
+  - react-native-webview (from `../node_modules/react-native-webview`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-networking (from `../node_modules/react-native/ReactCommon/react/networking`)
   - React-oscompat (from `../node_modules/react-native/ReactCommon/oscompat`)
@@ -4321,6 +4350,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-video"
   react-native-webrtc:
     :path: "../node_modules/react-native-webrtc"
+  react-native-webview:
+    :path: "../node_modules/react-native-webview"
   React-NativeModulesApple:
     :path: "../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios"
   React-networking:
@@ -4464,7 +4495,7 @@ SPEC CHECKSUMS:
   fmt: 530618a01105dae0fa3a2f27c81ae11fa8f67eac
   Gekidou: 9ac6db6670ad1377704998069c8a2f9e1a0ee2b4
   glog: 5683914934d5b6e4240e497e0f4a3b42d1854183
-  hermes-engine: 28814c9c9296d16aef26cb514de5378d18885e44
+  hermes-engine: 12fb23ace1cd87aa77b8ce4dfb8c1979ea9f7e9a
   JitsiWebRTC: b47805ab5668be38e7ee60e2258f49badfe8e1d0
   KituraContracts: e845e60dc8627ad0a76fa55ef20a45451d8f830b
   libwebp: 02b23773aedb6ff1fd38cec7a77b81414c6842a8
@@ -4522,14 +4553,15 @@ SPEC CHECKSUMS:
   react-native-image-picker: 6051cfd030121b880a58f1cc0e5e33e9887804e4
   react-native-keyboard-controller: f8979f50dc2752ff5dc1656bd315d58cd6e78bba
   react-native-netinfo: 9fad4eedfec9840a10e73ac4591ea1158523309b
-  react-native-network-client: e50f0a63f14641be7b4c969df23f4bb70e437769
-  react-native-network-client-session-attributes: b80d7492a3de9c2103e28b3839fe91ff6ce2375b
+  react-native-network-client: 3c34df49340d6de1ab8d236feaea29cbf25dde84
+  react-native-network-client-session-attributes: 3c66d94bb53a9e16ba0005ffecaab601f41007d3
   react-native-notifications: e2d3c022d6077de7e420ba5c01b4bd9464f3941d
   react-native-paste-input: 4b1423c882afacf39d7e2617e6c94835dcefaf39
   react-native-performance: a7a65d0b0f3055c5db33e1433e4345143ef6a100
   react-native-safe-area-context: eda63a662750758c1fdd7e719c9f1026c8d161cb
   react-native-video: d7e6372a63833708a2f7a8b48fed59036910428c
   react-native-webrtc: e8f0ce746353adc2744a2b933645e1aeb41eaa74
+  react-native-webview: cdce419e8022d0ef6f07db21890631258e7a9e6e
   React-NativeModulesApple: b917ca8e4702a3c7f283be6c5ebbdf0af8516c61
   React-networking: fd886fda5c01a731b6d2d8660bf8632047a3ca4e
   React-oscompat: 4524d8ccb12b7f07beb12e2ea9c5ea55b55d604b

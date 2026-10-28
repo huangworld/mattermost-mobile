@@ -12,6 +12,7 @@ import AddMembers from './add_members';
 import AutoFollowThreads from './auto_follow_threads';
 import ChannelFiles from './channel_files';
 import ChannelSettings from './channel_settings';
+import ChatletBoardOption from './chatlet_board';
 import IgnoreMentions from './ignore_mentions';
 import Members from './members';
 import MyAutotranslation from './my_autotranslation';
@@ -64,6 +65,10 @@ const Options = ({
             {isAutotranslationEnabledForThisChannel && (
                 <MyAutotranslation channelId={channelId}/>
             )}
+            <ChatletBoardOption
+                channelId={channelId}
+                displayName={channelDisplayName}
+            />
             <PinnedMessages channelId={channelId}/>
             <ChannelFiles channelId={channelId}/>
             {isPlaybooksEnabled && !isDMorGM &&

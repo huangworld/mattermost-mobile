@@ -18,6 +18,7 @@ const CHANNEL_ADD_MEMBERS = 'channel_add_members';
 const CHANNEL_BOOKMARK = 'channel_bookmark';
 const CHANNEL_CONFIGURATION = 'channel_configuration';
 const CHANNEL_FILES = 'channel_files';
+const CHATLET_BOARD = 'chatlet_board';
 const CHANNEL_INFO = '(channel_info)';
 const CHANNEL_LIST = 'channel_list';
 const CHANNEL_NOTIFICATION_PREFERENCES = 'channel_notification_preferences';
@@ -102,6 +103,7 @@ export default {
     CHANNEL_ADD_MEMBERS,
     CHANNEL_BOOKMARK,
     CHANNEL_FILES,
+    CHATLET_BOARD,
     CHANNEL_INFO,
     CHANNEL_LIST,
     CHANNEL_NOTIFICATION_PREFERENCES,
@@ -181,6 +183,7 @@ export default {
 
 export const MODAL_SCREENS = new Set<string>([
     BROWSE_CHANNELS,
+    CHATLET_BOARD,
     CHANNEL_INFO,
     CHANNEL_ADD_MEMBERS,
     CHANNEL_BOOKMARK,
