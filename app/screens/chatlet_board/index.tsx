@@ -23,6 +23,7 @@ import {getServerCredentials} from '@init/credentials';
 import {getChannelById} from '@queries/servers/channel';
 import {getCurrentTeam, getTeamById} from '@queries/servers/team';
 import {navigateBack} from '@screens/navigation';
+import {logDebug} from '@utils/log';
 import {getCSRFFromCookie} from '@utils/security';
 import {changeOpacity, makeStyleSheetFromTheme} from '@utils/theme';
 import {typography} from '@utils/typography';
@@ -110,39 +111,43 @@ const ChatletBoardScreen = ({channelId}: Props) => {
 
     useEffect(() => {
         let live = true;
-        (async () => {
-            const ok = await primeSessionCookies(serverUrl);
+        const prepare = async () => {
+            let ok = false;
+            let resolved: Target | null = null;
+            try {
+                ok = await primeSessionCookies(serverUrl);
+                resolved = ok ? await resolveTarget(serverUrl, channelId) : null;
+            } catch (error) {
+                logDebug('chatlet board: could not prepare', error);
+            }
             if (!live) {
                 return;
             }
-            if (!ok) {
-                setFailed('session');
-                return;
+            if (resolved) {
+                setTarget(resolved);
+            } else {
+                setFailed(ok ? 'channel' : 'session');
             }
-            const resolved = await resolveTarget(serverUrl, channelId);
-            if (!live) {
-                return;
-            }
-            if (!resolved) {
-                setFailed('channel');
-                return;
-            }
-            setTarget(resolved);
-        })();
+        };
+        prepare();
         return () => {
             live = false;
         };
     }, [serverUrl, channelId]);
 
-    const onMessage = useCallback((event: WebViewMessageEvent) => {
+    const onMessage = useCallback(async (event: WebViewMessageEvent) => {
         let message: {type?: string; postId?: string; url?: string} = {};
         try {
             message = JSON.parse(event.nativeEvent.data);
         } catch {
             return;
         }
+        logDebug('chatlet board: message', message.type, message.postId || message.url);
         if (message.type === 'jumpToPost' && message.postId && target) {
-            navigateBack();
+            // The board is a modal: let it finish closing before the permalink
+            // (a transparent modal of its own) opens over the channel.
+            await navigateBack();
+            await new Promise((resolve) => setTimeout(resolve, 450));
             showPermalink(serverUrl, target.teamName, message.postId);
         } else if (message.type === 'openLink' && message.url && /^https?:\/\//i.test(message.url)) {
             tryOpenURL(message.url);
