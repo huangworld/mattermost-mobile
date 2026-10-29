@@ -10,6 +10,7 @@ export type ChatletChannelState = {
     known: boolean;
     enabled: boolean;
     boardMsgId?: string;
+    botUserId?: string;
 };
 
 const DefaultState: ChatletChannelState = {known: false, enabled: false};

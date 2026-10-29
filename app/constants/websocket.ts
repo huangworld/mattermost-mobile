@@ -63,6 +63,12 @@ const WebsocketEvents = {
     APPS_FRAMEWORK_REFRESH_BINDINGS: 'custom_com.mattermost.apps_refresh_bindings',
     POST_TRANSLATION_UPDATED: 'post_translation_updated',
 
+    CHATLET_CONFIG: 'custom_chatlet_config',
+    CHATLET_BOARD: 'custom_chatlet_board',
+    CHATLET_PATCH: 'custom_chatlet_patch',
+    CHATLET_MESSAGE: 'custom_chatlet_message',
+    CHATLET_SNAPSHOT_INVALIDATE: 'custom_chatlet_snapshot-invalidate',
+
     CALLS_CHANNEL_ENABLED: `custom_${Calls.PluginId}_channel_enable_voice`,
     CALLS_CHANNEL_DISABLED: `custom_${Calls.PluginId}_channel_disable_voice`,
     CALLS_USER_JOINED: `custom_${Calls.PluginId}_user_joined`,

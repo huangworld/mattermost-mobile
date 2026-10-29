@@ -8,7 +8,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import CurrentCallBar from '@calls/components/current_call_bar';
 import {IncomingCallsContainer} from '@calls/components/incoming_calls_container';
 import JoinCallBanner from '@calls/components/join_call_banner';
-import {BOOKMARKS_BAR_HEIGHT, CHANNEL_BANNER_HEIGHT, DEFAULT_HEADER_HEIGHT, TABLET_HEADER_HEIGHT} from '@constants/view';
+import {BOOKMARKS_BAR_HEIGHT, CHANNEL_BANNER_HEIGHT, CHATLET_BANNER_HEIGHT, DEFAULT_HEADER_HEIGHT, TABLET_HEADER_HEIGHT} from '@constants/view';
 import {useServerUrl} from '@context/server';
 import {useIsTablet} from '@hooks/device';
 
@@ -30,6 +30,7 @@ type Props = {
     channelsScreen?: boolean;
     includeBookmarkBar?: boolean;
     includeChannelBanner?: boolean;
+    includeChatletBanner?: boolean;
 }
 
 const FloatingCallContainer = ({
@@ -41,6 +42,7 @@ const FloatingCallContainer = ({
     channelsScreen,
     includeBookmarkBar,
     includeChannelBanner,
+    includeChatletBanner,
 }: Props) => {
     const serverUrl = useServerUrl();
     const insets = useSafeAreaInsets();
@@ -49,7 +51,7 @@ const FloatingCallContainer = ({
     const topBarForTablet = (isTablet && !threadScreen) ? TABLET_HEADER_HEIGHT : 0;
     const topBarChannel = (!isTablet && !threadScreen) ? DEFAULT_HEADER_HEIGHT : 0;
     const wrapperTop = {
-        top: (threadScreen ? 0 : insets.top) + topBarForTablet + topBarChannel + (includeBookmarkBar ? BOOKMARKS_BAR_HEIGHT : 0) + (includeChannelBanner ? CHANNEL_BANNER_HEIGHT : 0),
+        top: (threadScreen ? 0 : insets.top) + topBarForTablet + topBarChannel + (includeBookmarkBar ? BOOKMARKS_BAR_HEIGHT : 0) + (includeChannelBanner ? CHANNEL_BANNER_HEIGHT : 0) + (includeChatletBanner ? CHATLET_BANNER_HEIGHT : 0),
     };
     const wrapperBottom = {
         bottom: 8,

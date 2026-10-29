@@ -1,6 +1,8 @@
 // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
+import {handleChatletBoard, handleChatletConfig, handleChatletMessage, handleChatletPatch, handleChatletSnapshotInvalidate} from '@chatlet/actions/websocket';
+
 import * as bookmark from '@actions/local/channel_bookmark';
 import {
     handleBoRPostAllRevealed,
@@ -198,6 +200,21 @@ export async function handleWebSocketEvent(serverUrl: string, msg: WebSocketMess
             break;
         case WebsocketEvents.CALLS_CHANNEL_DISABLED:
             calls.handleCallChannelDisabled(serverUrl, msg);
+            break;
+        case WebsocketEvents.CHATLET_CONFIG:
+            handleChatletConfig(serverUrl, msg);
+            break;
+        case WebsocketEvents.CHATLET_BOARD:
+            handleChatletBoard(serverUrl, msg);
+            break;
+        case WebsocketEvents.CHATLET_PATCH:
+            handleChatletPatch(serverUrl, msg);
+            break;
+        case WebsocketEvents.CHATLET_MESSAGE:
+            handleChatletMessage(serverUrl, msg);
+            break;
+        case WebsocketEvents.CHATLET_SNAPSHOT_INVALIDATE:
+            handleChatletSnapshotInvalidate(serverUrl, msg);
             break;
         case WebsocketEvents.CALLS_USER_JOINED:
             calls.handleCallUserJoined(serverUrl, msg);

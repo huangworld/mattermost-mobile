@@ -16,9 +16,27 @@ export type ChatletChannelResponse = {
     isHost?: boolean;
 };
 
+// A room snapshot: every message the sidecar keeps for the channel. People's
+// messages carry Chatlet's read receipt; the newest decision carries the
+// board's versions.
+export type ChatletSnapshotMessage = {
+    id: string;
+    kind: string;
+    text?: string;
+    createdAt?: number;
+    chatlet?: {state: string; at?: number; turnId?: string; reason?: string};
+    versions?: Array<{id: string; text?: string; by?: string; createdAt?: number; sourceMessageIds?: string[]}>;
+};
+
+export type ChatletSnapshotResponse = {
+    messages?: ChatletSnapshotMessage[];
+    agentBusy?: boolean;
+};
+
 export interface ClientChatletMix {
     getChatletRoute: () => string;
     getChatletChannel: (channelId: string) => Promise<ChatletChannelResponse>;
+    getChatletSnapshot: (channelId: string) => Promise<ChatletSnapshotResponse>;
 }
 
 const ClientChatlet = (superclass: any) => class extends superclass {
@@ -29,6 +47,13 @@ const ClientChatlet = (superclass: any) => class extends superclass {
     getChatletChannel = async (channelId: string) => {
         return this.doFetch(
             `${this.getChatletRoute()}/api/channel?channel=${encodeURIComponent(channelId)}`,
+            {method: 'get'},
+        );
+    };
+
+    getChatletSnapshot = async (channelId: string) => {
+        return this.doFetch(
+            `${this.getChatletRoute()}/api/group/snapshot?room=${encodeURIComponent(channelId)}`,
             {method: 'get'},
         );
     };

@@ -1,6 +1,7 @@
 // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
+import {useChatletChannelState} from '@chatlet/store/chatlet_channel';
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {DeviceEventEmitter, type LayoutChangeEvent, StyleSheet} from 'react-native';
 import {type Edge, SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -128,6 +129,8 @@ const Channel = ({
         setContainerHeight(e.nativeEvent.layout.height);
     }, []);
 
+    const chatlet = useChatletChannelState(serverUrl, channelId);
+    const includeChatletBanner = chatlet.enabled && Boolean(chatlet.boardMsgId);
     const showFloatingCallContainer = showJoinCallBanner || isInACall || showIncomingCalls;
 
     return (
@@ -162,6 +165,7 @@ const Channel = ({
                 isInACall={isInACall}
                 includeBookmarkBar={includeBookmarkBar}
                 includeChannelBanner={includeChannelBanner}
+                includeChatletBanner={includeChatletBanner}
             />
             }
         </SafeAreaView>

@@ -1,6 +1,7 @@
 // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
+import ChatletPostStatus from '@chatlet/components/post_status';
 import React, {type ReactNode, useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {useIntl} from 'react-intl';
 import {type StyleProp, View, type ViewStyle, TouchableHighlight, type LayoutChangeEvent} from 'react-native';
@@ -434,6 +435,19 @@ const Post = ({
         );
     }
 
+    // Chatlet's read receipt under a person's message in the channel.
+    let chatletStatus;
+    if (location === Screens.CHANNEL && !post.type && !isSystemPost && !hasBeenDeleted) {
+        chatletStatus = (
+            <ChatletPostStatus
+                channelId={post.channelId}
+                postId={post.id}
+                userId={post.userId}
+                testID={`${itemTestID}.chatlet_status`}
+            />
+        );
+    }
+
     let unreadDot;
     let footer;
     if (isCRTEnabled && thread && location !== Screens.THREAD && !(rootId && location === Screens.PERMALINK)) {
@@ -480,6 +494,7 @@ const Post = ({
                         <View style={rightColumnStyle}>
                             {header}
                             {body}
+                            {chatletStatus}
                             {footer}
                         </View>
                         {unreadDot}

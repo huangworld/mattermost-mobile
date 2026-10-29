@@ -13,7 +13,7 @@ export async function fetchChatletChannel(serverUrl: string, channelId: string):
         const client = NetworkManager.getClient(serverUrl);
         const response = await client.getChatletChannel(channelId);
         const enabled = Boolean(response?.enabled);
-        setChatletChannel(serverUrl, channelId, {enabled, boardMsgId: response?.boardMsgId});
+        setChatletChannel(serverUrl, channelId, {enabled, boardMsgId: response?.boardMsgId, botUserId: response?.botUserId});
         return {enabled};
     } catch (error) {
         logDebug('fetchChatletChannel', 'no chatlet for channel', channelId, error);

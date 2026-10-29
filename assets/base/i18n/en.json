@@ -1771,5 +1771,18 @@
   "video.failed_description": "An error occurred while trying to play the video.",
   "video.normal": "Normal",
   "video.playback_speed": "Playback Speed",
-  "your.servers": "Your servers"
+  "your.servers": "Your servers",
+  "chatlet.banner.by": "{by}: {text}",
+  "chatlet.banner.collapse": "Hide the board",
+  "chatlet.banner.expand": "Show the board",
+  "chatlet.banner.full_screen": "Open the board full screen",
+  "chatlet.banner.title": "Board",
+  "chatlet.receipt.queued": "Waiting for Chatlet",
+  "chatlet.receipt.reading": "Chatlet is reading",
+  "chatlet.receipt.reason.dropped": "(too many at once)",
+  "chatlet.receipt.reason.failed": "(the turn failed)",
+  "chatlet.receipt.reason.stopped": "(stopped)",
+  "chatlet.receipt.seen": "Seen by Chatlet · {time}",
+  "chatlet.receipt.skipped": "Chatlet skipped this",
+  "chatlet.receipt.updates": "{count, plural, one {# board update} other {# board updates}}"
 }
