@@ -26,8 +26,13 @@ import {changeOpacity, makeStyleSheetFromTheme} from '@utils/theme';
 import {typography} from '@utils/typography';
 import {tryOpenURL} from '@utils/url';
 
+// Where the app put the board: the channel's banner shows the board alone,
+// the full-screen view adds Chatlet's status and the decision timeline.
+export type BoardMode = 'banner' | 'full';
+
 type Props = {
     channelId: string;
+    mode: BoardMode;
     onJumpToPost: (teamName: string, postId: string) => void;
     testID?: string;
 };
@@ -85,7 +90,7 @@ async function primeSessionCookies(serverUrl: string) {
     return true;
 }
 
-async function resolveTarget(serverUrl: string, channelId: string): Promise<Target | null> {
+async function resolveTarget(serverUrl: string, channelId: string, mode: BoardMode): Promise<Target | null> {
     const {database} = DatabaseManager.getServerDatabaseAndOperator(serverUrl);
     const channel = await getChannelById(database, channelId);
     if (!channel) {
@@ -95,11 +100,11 @@ async function resolveTarget(serverUrl: string, channelId: string): Promise<Targ
     if (!team) {
         return null;
     }
-    const uri = `${serverUrl}/_popout/rhs/${encodeURIComponent(team.name)}/plugin/chatlet?channel=${encodeURIComponent(channel.name)}`;
+    const uri = `${serverUrl}/_popout/rhs/${encodeURIComponent(team.name)}/plugin/chatlet?channel=${encodeURIComponent(channel.name)}&chatlet_mode=${mode}`;
     return {uri, teamName: team.name};
 }
 
-const BoardWebView = ({channelId, onJumpToPost, testID = 'chatlet_board.webview'}: Props) => {
+const BoardWebView = ({channelId, mode, onJumpToPost, testID = 'chatlet_board.webview'}: Props) => {
     const serverUrl = useServerUrl();
     const theme = useTheme();
     const intl = useIntl();
@@ -115,7 +120,7 @@ const BoardWebView = ({channelId, onJumpToPost, testID = 'chatlet_board.webview'
             let resolved: Target | null = null;
             try {
                 ok = await primeSessionCookies(serverUrl);
-                resolved = ok ? await resolveTarget(serverUrl, channelId) : null;
+                resolved = ok ? await resolveTarget(serverUrl, channelId, mode) : null;
             } catch (error) {
                 logDebug('chatlet board: could not prepare', error);
             }
@@ -132,7 +137,7 @@ const BoardWebView = ({channelId, onJumpToPost, testID = 'chatlet_board.webview'
         return () => {
             live = false;
         };
-    }, [serverUrl, channelId]);
+    }, [serverUrl, channelId, mode]);
 
     const onMessage = useCallback((event: WebViewMessageEvent) => {
         let message: {type?: string; postId?: string; url?: string} = {};

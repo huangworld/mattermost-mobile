@@ -9,6 +9,8 @@ import {useEffect, useState} from 'react';
 import {BehaviorSubject} from 'rxjs';
 import {distinctUntilChanged, map} from 'rxjs/operators';
 
+import {CHATLET_BANNER_SHARE} from '@constants/view';
+
 import type {ChatletSnapshotResponse} from '@chatlet/client/rest';
 
 export type ChatletReadState = 'queued' | 'reading' | 'seen' | 'skipped';
@@ -42,6 +44,9 @@ export type ChatletRoom = {
     notice?: ChatletNotice;
     expanded: boolean;
     seenVersionAt: number;
+
+    // The banner's height as a share of the window, once someone dragged it.
+    heightShare?: number;
 };
 
 const READ_STATES = new Set<string>(['queued', 'reading', 'seen', 'skipped']);
@@ -125,6 +130,11 @@ export const setBannerExpanded = (serverUrl: string, channelId: string, expanded
     const room = getChatletRoom(serverUrl, channelId);
     const seenVersionAt = expanded ? Math.max(room.seenVersionAt, latestChangeAt(room)) : room.seenVersionAt;
     update(serverUrl, channelId, {expanded, seenVersionAt});
+};
+
+export const setBannerHeightShare = (serverUrl: string, channelId: string, share: number) => {
+    const heightShare = Math.min(CHATLET_BANNER_SHARE.Max, Math.max(CHATLET_BANNER_SHARE.Min, share));
+    update(serverUrl, channelId, {heightShare});
 };
 
 export const markVersionsSeen = (serverUrl: string, channelId: string) => {

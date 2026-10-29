@@ -1777,6 +1777,7 @@
   "chatlet.banner.expand": "Show the board",
   "chatlet.banner.full_screen": "Open the board full screen",
   "chatlet.banner.title": "Board",
+  "chatlet.banner.resize_hint": "Drag to resize",
   "chatlet.receipt.queued": "Waiting for Chatlet",
   "chatlet.receipt.reading": "Chatlet is reading",
   "chatlet.receipt.reason.dropped": "(too many at once)",

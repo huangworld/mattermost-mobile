@@ -29,6 +29,7 @@ const ChatletBoardScreen = ({channelId}: Props) => {
     return (
         <BoardWebView
             channelId={channelId}
+            mode='full'
             onJumpToPost={onJumpToPost}
         />
     );

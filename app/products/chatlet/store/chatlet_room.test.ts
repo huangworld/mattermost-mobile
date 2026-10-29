@@ -6,6 +6,7 @@ import {act, renderHook} from '@testing-library/react-native';
 import {
     getChatletRoom,
     setBannerExpanded,
+    setBannerHeightShare,
     setPostState,
     setRoomFromSnapshot,
     toPostState,
@@ -69,6 +70,16 @@ describe('chatlet room store', () => {
         expect(getChatletRoom(serverUrl, channelId)).toMatchObject({expanded: true, seenVersionAt: 120});
         setBannerExpanded(serverUrl, channelId, false);
         expect(getChatletRoom(serverUrl, channelId)).toMatchObject({expanded: false, seenVersionAt: 120});
+    });
+
+    it('should keep a dragged banner height within bounds and across a collapse', () => {
+        setBannerHeightShare(serverUrl, channelId, 0.95);
+        expect(getChatletRoom(serverUrl, channelId).heightShare).toBe(0.85);
+        setBannerHeightShare(serverUrl, channelId, 0.1);
+        expect(getChatletRoom(serverUrl, channelId).heightShare).toBe(0.4);
+        setBannerHeightShare(serverUrl, channelId, 0.7);
+        setBannerExpanded(serverUrl, channelId, false);
+        expect(getChatletRoom(serverUrl, channelId)).toMatchObject({expanded: false, heightShare: 0.7});
     });
 
     it('should reject receipts without a known state', () => {

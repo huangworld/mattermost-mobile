@@ -33,6 +33,14 @@ export const ANNOUNCEMENT_BAR_HEIGHT = 40;
 export const BOOKMARKS_BAR_HEIGHT = 48;
 export const CHANNEL_BANNER_HEIGHT = 26;
 export const CHATLET_BANNER_HEIGHT = 40;
+
+// How much of the window the opened board takes: the default, and the range
+// a drag on the strip can set.
+export const CHATLET_BANNER_SHARE = {
+    Default: 0.6,
+    Min: 0.4,
+    Max: 0.85,
+} as const;
 export const CLASSIFICATION_BANNER_HEIGHT = 20;
 export const CLASSIFICATION_BANNER_MARGIN_BOTTOM = 5;
 export const CLASSIFICATION_BANNER_MARGIN_HORIZONTAL = 8;
